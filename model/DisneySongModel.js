@@ -7,6 +7,7 @@ class DisenySong {
     }
 
     // Promise 예제
+    // Read
     getSongList() {
         if (this.song) {
             return this.song;
@@ -16,6 +17,7 @@ class DisenySong {
         }
     }
 
+    // Create
     addSong(OstTitle, MovieTitle, Year, MainC) {
         return new Promise((resolve, reject) => {
             let last = this.song[this.song.length - 1];
@@ -29,6 +31,7 @@ class DisenySong {
     }
 
     // Promise - Reject
+    // Read - ReadDetail
     getSongDetail(songId) {
         return new Promise((resolve, reject) => {
             for (var disney of this.song) {
@@ -41,7 +44,7 @@ class DisenySong {
         });
     }
 
-    // delete
+    // Delete
     deleteSong(songId) {
         return new Promise((resolve, reject) => {
             for (var disney of this.song) {
@@ -55,14 +58,14 @@ class DisenySong {
         });
     }
 
-    // update
+    // Update
     updateSong(songId, OstTitle, MovieTitle, Year, MainC) {
         return new Promise((resolve, reject) => {
-            const songid = parseInt(songId);
-            let newDisenySong = { songid, OstTitle, MovieTitle, Year, MainC };
+            const id = parseInt(songId);
+            let newDisenySong = { id, OstTitle, MovieTitle, Year, MainC };
             for (var disney of this.song) {
-                if (disney.id == songid) {
-                    this.song.splice(songId, 1, newDisenySong);
+                if (disney.id == id) {
+                    this.song.splice(id, 1, newDisenySong);
                     resolve(newDisenySong);
                     return;
                 }
