@@ -1,0 +1,23 @@
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>OST Disney Song List</title>
+</head>
+
+<body>
+    <h1>디즈니 OST 목록</h1>
+    <p>
+        <input type="button" value="노래등록" onclick="location.href='/song/add'">
+    </p>
+    <% song.forEach(function(data) { %>
+    <h3><a href='/song/<%= data._id %>'>ID : <%= data._id %></a></h3>
+
+    OST제목 : <%= data.OstTitle %> </br>
+    영화제목 : <%= data.MovieTitle %> </br>
+    발매연도 : <%= data.Year %> </br>
+    주인공 : <%= data.MainC %> </br>
+    <% }) %>
+</body>
+
+</html>
