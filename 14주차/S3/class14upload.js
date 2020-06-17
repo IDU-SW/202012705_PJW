@@ -9,7 +9,7 @@ AWS.config.loadFromPath(__dirname + "/aws_config.json")
 let s3 = new AWS.S3()
 let multerS3 = require("multer-s3")
 
-const sequelize = new Sequelize('example', 'admin', 'cometrue', { dialect: 'mysql', host: 'idu-2020.cutcvlbvumkv.ap-northeast-2.rds.amazonaws.com' });
+const sequelize = new Sequelize('example', 'admin', 'cometrue', { dialect: 'mysql', host: 'idu-2020.cnmqjaiiofsi.ap-northeast-2.rds.amazonaws.com' });
 
 const Image = sequelize.define('image', {
     name: Sequelize.STRING,
