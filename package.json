@@ -1,5 +1,5 @@
 {
-  "name": "202012705_pjw",
+  "name": "202012705_finalproject_pjw",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -17,7 +17,7 @@
     "mysql2": "^2.1.0",
     "sequelize": "^5.21.9"
   },
-  "description": "",
+  "description": "MongoDB 사용하기",
   "devDependencies": {},
   "repository": {
     "type": "git",

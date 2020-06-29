@@ -7,8 +7,9 @@
 
 <body>
     <h1>디즈니 OST 목록</h1>
+    <h3><%= user.registerName %> 님 로그인을 환영합니다</h3>
     <p>
-        <input type="button" value="노래등록" onclick="location.href='/song/add'">
+        <input type="button" value="노래등록" onclick="location.href='/song/add'"> <input type="button" value="로그아웃" onclick="location.href='/logout'">
     </p>
     <% song.forEach(function(data) { %>
     <h3><a href='/song/<%= data._id %>'>ID : <%= data._id %></a></h3>

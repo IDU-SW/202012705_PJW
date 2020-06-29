@@ -17,12 +17,18 @@ class DisenySong {}
 
 // Login(로그인)
 DisenySong.showLogin = async (user) => {
-    console.log(await db.collection('user').findOne({ registerId: user.loginId, registerPw: user.loginPw }));
     return await db.collection('user').findOne({ registerId: user.loginId, registerPw: user.loginPw });
 }
 
-// Register (회원 가입)
+// Register (회원 가입 및 중복방지)
 DisenySong.addRegister = async (registerId, registerPw, registerName, registerEmail) => {
+    // 회원가입 중복 방지 (조회 후 id가 같으면 가입 안됨)
+    const user = await db.collection('user').findOne({ registerId: registerId });
+    if(user) { //user 가 있으면 가입이 안됨
+        return null;
+    }
+
+    // 회원 가입 기능
     const data = { registerId, registerPw, registerName, registerEmail };
     try {
         const returnValue = await userOneAdd(data);
@@ -42,7 +48,6 @@ async function userOneAdd(user) {
             registerEmail: user.registerEmail
         }, { logging: false });
         const newUser = userData;
-        console.log('입력된 데이터 : ', newUser);
         return newUser;
     } catch (error) {
         console.log(error);

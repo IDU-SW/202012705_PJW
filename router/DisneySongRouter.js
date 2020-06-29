@@ -9,6 +9,7 @@ router.get('/song', showSongList);
 router.get('/song/add', addSongForm);
 router.get('/song/update/:Songid', updateSongForm);
 router.get('/song/:Songid', showSongDetail);
+router.get('/logout', logout);
 router.post('/register', addRegister); // 회원가입 기능 구현
 router.post('/login', sessionLogin); //로그인 기능 구현
 router.post('/song', addSong);
@@ -24,13 +25,25 @@ async function showLogin(req, res) {
 
 // login (로그인 기능 구현)
 async function sessionLogin(req, res) {
-    const user = req.session.user; //세션값(로그인한 정보
-    if(!user) {
+    const user = {
+        loginId : req.body.loginId, // login page의 id 접근
+        loginPw : req.body.loginPw // login page의 pw 접근
+    };
+    const result = await song.showLogin(user);
+    
+    if(!result) {
         res.redirect('/login');
     }
     else {
+        req.session.user = result;
         res.redirect('/song');
     }
+}
+
+// logout (로그아웃 기능 구현)
+async function logout(req, res) {
+    req.session.user = null; //logout 하면 session 에 담긴 login 정보를 비움
+    res.redirect('/');
 }
 
 // Register (회원가입 페이지를 보여줌)
@@ -52,7 +65,13 @@ async function addRegister(req, res) {
 
     try {
         const result = await song.addRegister(registerId, registerPw, registerName, registerEmail);
-        res.render('registerComplete', { data: result });
+        console.log(result);
+        if(result == null) { //회원 가입 id가 중복되면 회원가입 실패 페이지 띄우기
+            res.render('registerFail');
+        }
+        else {
+            res.render('registerComplete', { data: result }); //회원가입이 정상적으로 되면 완료페이지 띄우기
+        }
     }
     catch (error) {
         res.status(500).send(error.msg);
