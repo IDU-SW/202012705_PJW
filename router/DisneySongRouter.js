@@ -10,11 +10,28 @@ router.get('/song/add', addSongForm);
 router.get('/song/update/:Songid', updateSongForm);
 router.get('/song/:Songid', showSongDetail);
 router.post('/register', addRegister); // 회원가입 기능 구현
+router.post('/login', sessionLogin); //로그인 기능 구현
 router.post('/song', addSong);
 router.post('/song/delete/:Songid', deleteSong);
 router.post('/song/update/:Songid', updateSong);
 
 module.exports = router;
+
+// login (로그인 페이지 보여줌)
+async function showLogin(req, res) {
+    res.render('login');
+}
+
+// login (로그인 기능 구현)
+async function sessionLogin(req, res) {
+    const user = req.session.user; //세션값(로그인한 정보
+    if(!user) {
+        res.redirect('/login');
+    }
+    else {
+        res.redirect('/song');
+    }
+}
 
 // Register (회원가입 페이지를 보여줌)
 async function showRegister(req, res) {
@@ -40,11 +57,6 @@ async function addRegister(req, res) {
     catch (error) {
         res.status(500).send(error.msg);
     }
-}
-
-// login (로그인)
-async function showLogin(req, res) {
-    res.render('login');
 }
 
 // Read (리스트조회)

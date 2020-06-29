@@ -15,6 +15,40 @@ MongoClient.connect(url, { useUnifiedTopology: true }, function (err, database) 
 
 class DisenySong {}
 
+// Login(로그인)
+DisenySong.showLogin = async (user) => {
+    console.log(await db.collection('user').findOne({ registerId: user.loginId, registerPw: user.loginPw }));
+    return await db.collection('user').findOne({ registerId: user.loginId, registerPw: user.loginPw });
+}
+
+// Register (회원 가입)
+DisenySong.addRegister = async (registerId, registerPw, registerName, registerEmail) => {
+    const data = { registerId, registerPw, registerName, registerEmail };
+    try {
+        const returnValue = await userOneAdd(data);
+        return returnValue;
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+// Register (회원 가입 : 실제 입력된 값 db에 추가)
+async function userOneAdd(user) {
+    try {
+        let userData = await db.collection('user').insertOne({
+            registerId: user.registerId,
+            registerPw: user.registerPw,
+            registerName: user.registerName,
+            registerEmail: user.registerEmail
+        }, { logging: false });
+        const newUser = userData;
+        console.log('입력된 데이터 : ', newUser);
+        return newUser;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 // Read (전체 조회)
 DisenySong.getSongList = async () => {
     return await db.collection('song').find({}).toArray();
