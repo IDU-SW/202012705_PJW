@@ -6,3 +6,5 @@
 - id : induk, pw : induk
 - id : jiwon, pw : 1111
 - id : mini, pw : mini
+5) 사이트주소
+http://52.79.250.16:8000
